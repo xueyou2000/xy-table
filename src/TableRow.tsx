@@ -20,6 +20,15 @@ function TableRow(props: TableRowProps) {
         }
     }
 
+    function onMouseEnter(e: React.MouseEvent<HTMLElement>) {
+        context.setRowIndex(rowIndex);
+        console.log('set', rowIndex);
+    }
+
+    function onMouseLeave(e: React.MouseEvent<HTMLElement>) {
+        context.setRowIndex(null);
+    }
+
     const content = epContext.getFullColumns(columns).map((x, i) => {
         if (x.title !== ExpandFlag) {
             return (
@@ -38,10 +47,12 @@ function TableRow(props: TableRowProps) {
     });
 
     const _props = {
-        className: classNames(`${prefixCls}-row`, className),
+        className: classNames(`${prefixCls}-row`, className, { [`${prefixCls}-hover`]: context.hoverRowIndex === rowIndex }),
+        onMouseEnter,
+        onMouseLeave,
         key: rowIndex,
         children: content,
-        onClick: clickHandle
+        onClick: clickHandle,
     };
 
     function renderRow() {

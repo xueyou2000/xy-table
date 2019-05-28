@@ -9,10 +9,10 @@ import TableMain from "./TableMain";
 export const ExpandFlag = "_expand_flag";
 
 function Table(props: TableProps) {
-    const { prefixCls = "xy-table", className, style, columns, data, renderCell, renderRow, scroll = {}, emptyText, expandedRowRender, expandRowByClick, expandIconAsCell, expandIcon, expandIconColumnIndex = 0 } = props;
+    const { prefixCls = "xy-table", className, style, columns, data, renderCell, renderRow, scroll = {}, align = "left", emptyText, expandedRowRender, expandRowByClick, expandIconAsCell, expandIcon, expandIconColumnIndex = 0 } = props;
     const [expandedRowKeys, changeExpandHandle, getFullColumns] = useExpander(props);
     const [scrollPosition, setScrollPosition] = useState<ScrollPosition>("left");
-    // const [scrollTop, setScrollTop] = useState(0);
+    const [hoverRowIndex, setHoverRowIndex] = useState(null);
     const classString = classNames(prefixCls, className, `${prefixCls}-scroll-position-${scrollPosition}`, {
         [`${prefixCls}-fixed-header`]: scroll && !!scroll.y
     });
@@ -74,10 +74,16 @@ function Table(props: TableProps) {
         syncRowsHeight(rightFixedRows);
     }
 
+    function setRowIndex(i: number) {
+        if (hoverRowIndex !== i) {
+            setHoverRowIndex(i);
+        }
+    }
+
     return (
         <div className={classString} style={style}>
             <div className={`${prefixCls}-content`} ref={ref}>
-                <TableContext.Provider value={{ renderCell, renderRow }}>
+                <TableContext.Provider value={{ renderCell, renderRow, align, hoverRowIndex, setRowIndex }}>
                     <ExpanderContext.Provider
                         value={{ expandedRowRender, expandRowByClick, showExpandIcon: !!expandedRowRender, expandIcon, getFullColumns, expandIconAsCell, expandIconColumnIndex, expandedRowKeys, onExpand: changeExpandHandle }}
                     >

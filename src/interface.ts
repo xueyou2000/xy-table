@@ -224,6 +224,10 @@ export interface TableProps extends ExpandProps, TableContextState {
      * 空内容时的占位符
      */
     emptyText?: React.ReactNode;
+    /**
+     * 文本对齐方式
+     */
+    align?: TableAlign;
 }
 
 /**
@@ -277,6 +281,14 @@ export interface TableContextState {
      * 文本对齐方式
      */
     align?: TableAlign;
+    /**
+     * 当前鼠标悬停行
+     */
+    hoverRowIndex?: number;
+    /**
+     * 设置鼠标悬停行
+     */
+    setRowIndex?: (index: number) => void;
 }
 
 export interface ExpanderContextState {

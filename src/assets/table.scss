@@ -57,6 +57,14 @@ $Table: "xy-table";
     }
 }
 
+.#{$Table}-row.#{$Table}-hover {
+    background: #eaf8fe;
+
+    td {
+        background: #eaf8fe;
+    }
+}
+
 .#{$Table}-placeholder {
     padding: 16px 8px;
     background: #fff;
@@ -124,10 +132,6 @@ $Table: "xy-table";
 .#{$Table}-scroll-position-left {
     .#{$Table}-fixed-left {
         box-shadow: none;
-
-        td {
-            background: #fff;
-        }
     }
 }
 .#{$Table}-scroll-position-right {
