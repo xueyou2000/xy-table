@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
 import classNames from "classnames";
-import { TableCellProps } from "./interface";
+import React, { useContext } from "react";
 import { TableContext } from "./Context";
+import { TableCellProps } from "./interface";
 
-function TableCell(props: TableCellProps<any>) {
+function TableCell(props: TableCellProps) {
     const { prefixCls, className, column, record, rowIndex, expandIcon = null, fixed } = props;
     const cellPrefixCls = `${prefixCls}-cell`;
     const context = useContext(TableContext);
-    const classString = classNames(cellPrefixCls, className, column.className, {
-        [`${cellPrefixCls}-align-right`]: column.align === "right",
-        [`${prefixCls}-fixed-columns-in-body`]: !!column.fixed && !!fixed
+    const align = column.align || context.align || "left";
+    const classString = classNames(cellPrefixCls, className, column.className, `${cellPrefixCls}-align-${align}`, {
+        [`${prefixCls}-fixed-columns-in-body`]: !!column.fixed && !fixed
     });
 
     const content = (

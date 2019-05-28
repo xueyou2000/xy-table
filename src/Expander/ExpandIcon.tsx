@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
 import classNames from "classnames";
+import React, { useContext } from "react";
+import { ExpanderContext } from "../Context";
 import { ExpandIconProps } from "./interface";
-import { ExpanderContext } from "./Context";
 
 function ExpandIcon(props: ExpandIconProps) {
     const { prefixCls, rowIndex, record } = props;
     const context = useContext(ExpanderContext);
-    const expanded = context && context.expandedRowKeys.some((x) => x === rowIndex);
+    const expanded = context.expandedRowKeys.some((x) => x === rowIndex);
     const classString = classNames(`${prefixCls}-expand-icon`, `${prefixCls}-${expanded === false ? "collapsed" : "expanded"}`, {
         [`${prefixCls}-expand-inline`]: !context.expandIconAsCell
     });

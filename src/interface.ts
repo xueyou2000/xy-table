@@ -1,9 +1,24 @@
-export interface CustomizeExpandIconProps {
-    expanded: boolean;
-    record: any;
-    onClick: () => void;
-}
+import { ExpandProps, ExpandIconProps } from "./Expander/interface";
 
+/**
+ * 表格水平滚动条所在位置
+ * @description left滚动到开头，right滚动到末尾, 其他则是中间
+ */
+export type ScrollPosition = "left" | "middle" | "right";
+
+/**
+ * 表格文本对齐方式
+ */
+export type TableAlign = "left" | "right";
+
+/**
+ * 自定义折叠图标
+ */
+export interface CustomizeExpandIconProps { }
+
+/**
+ * 表格列配置
+ */
 export interface TableColumn {
     /**
      * key
@@ -40,7 +55,10 @@ export interface TableColumn {
     render?: (record: any, rowIndex: number) => React.ReactNode;
 }
 
-export interface TableCellProps<RecodeData> {
+/**
+ * 表格列
+ */
+export interface TableCellProps {
     /**
      * 附加类名
      */
@@ -60,7 +78,7 @@ export interface TableCellProps<RecodeData> {
     /**
      * 列数据
      */
-    record: RecodeData;
+    record: any;
     /**
      * 所在行
      */
@@ -76,7 +94,10 @@ export interface TableCellProps<RecodeData> {
     fixed?: false | "left" | "right";
 }
 
-export interface TableRowProps<RecodeData> {
+/**
+ * 表格行
+ */
+export interface TableRowProps {
     /**
      * 附加类名
      */
@@ -96,7 +117,7 @@ export interface TableRowProps<RecodeData> {
     /**
      * 要呈现的数据
      */
-    record?: RecodeData;
+    record?: any;
     /**
      * 行索引
      */
@@ -107,50 +128,74 @@ export interface TableRowProps<RecodeData> {
     fixed?: false | "left" | "right";
 }
 
-export interface ExpandProps<RecodeData> {
+/**
+ * 主体表格
+ */
+export interface TableMainProps {
     /**
-     * 自定义折叠图标
+     * 附加类名
      */
-    expandIcon?: (props: CustomizeExpandIconProps) => JSX.Element;
+    prefixCls?: string;
     /**
-     * 是否点击行,切换扩展内容的显示/隐藏
+     * 列配置
      */
-    expandRowByClick?: boolean;
+    columns?: TableColumn[];
     /**
-     * 扩展图标是否作为单独的列
+     * 要呈现的数据
      */
-    expandIconAsCell?: boolean;
+    data?: any[];
     /**
-     * 渲染扩展行内容
+     * 空内容时的占位符
      */
-    expandedRowRender?: (record: RecodeData, expanded: boolean) => React.ReactNode;
+    emptyText?: React.ReactNode;
     /**
-     * 当前展开的扩展内容
-     * @description 这里的 key 与 行索引匹配
+     * 表格是否可以在x/y方向滚动
      */
-    expandedRowKeys?: number[];
+    scroll?: { x?: boolean | number | string; y?: boolean | number | string };
     /**
-     * 默认展开的扩展内容
+     * 滚动条横向事件
      */
-    defaultExpandAllRows?: number[];
+    onScrollLeft?: (position: ScrollPosition, e: React.UIEvent<HTMLDivElement>) => void;
     /**
-     * 展开的扩展内容改变
+     * 更新表格行高度
      */
-    onExpandedRowsChange?: (rows: number[]) => void;
-    /**
-     * 展开/折叠事件
-     */
-    onExpand?: (record: RecodeData, expanded: boolean) => void;
-    /**
-     * 扩展图标列索引
-     * @description 当 expandIconAsCell 为 false 时候，指定将扩展图标插入到哪一列
-     */
-    expandIconColumnIndex?: number;
+    onRowHeightUpdate?: (rowsHeight: number[]) => void;
 }
 
-export interface TableProps<RecodeData = any> extends ExpandProps<RecodeData>, TableContextState, ScrollTableProps {}
+/**
+ * 悬浮表格
+ */
+export interface FixedTableProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 列配置
+     */
+    columns?: TableColumn[];
+    /**
+     * 表格是否可以在x/y方向滚动
+     */
+    scroll?: { x?: boolean | number | string; y?: boolean | number | string };
+    /**
+     * 要呈现的数据
+     */
+    data?: any[];
+    /**
+     * 悬浮方向
+     */
+    fixed: "left" | "right";
+    /**
+     * 滚动条事件
+     */
+    onScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
+}
 
-export interface ScrollTableProps {
+/**
+ * 表格
+ */
+export interface TableProps extends ExpandProps, TableContextState {
     /**
      * 附加类名
      */
@@ -172,73 +217,73 @@ export interface ScrollTableProps {
      */
     data?: any[];
     /**
-     * 空内容时的占位符
-     */
-    emptyText?: React.ReactNode;
-    /**
      * 表格是否可以在x/y方向滚动
      */
     scroll?: { x?: boolean | number | string; y?: boolean | number | string };
+    /**
+     * 空内容时的占位符
+     */
+    emptyText?: React.ReactNode;
 }
 
-export interface ExpandIconProps {
+/**
+ * 基础表格
+ */
+export interface BaseTableProps {
     /**
      * 附加类名
      */
     prefixCls?: string;
     /**
-     * 要呈现的数据
+     * 根节点的附加类名
      */
-    record?: any;
+    className?: string;
     /**
-     * 表格行索引
+     * 内联样式
      */
-    rowIndex: number;
-}
-
-export interface ExpandRowProps {
-    /**
-     * 附加类名
-     */
-    prefixCls?: string;
-    /**
-     * 行索引
-     */
-    rowIndex: number;
-    /**
-     * 数据
-     */
-    record: any;
+    style?: React.CSSProperties;
     /**
      * 列配置
      */
-    columns: TableColumn[];
+    columns?: TableColumn[];
     /**
-     * 是否折叠
+     * 要呈现的数据
      */
-    expanded?: boolean;
+    data?: any[];
     /**
-     * 渲染扩展行内容
+     * 表格是否固定
      */
-    expandedRowRender?: (record: any, expanded: boolean) => React.ReactNode;
+    fixed?: false | "left" | "right";
+    /**
+     * 是否有表格体
+     */
+    hasBody?: boolean;
+    /**
+     * 是否有表格头
+     */
+    hasHead?: boolean;
 }
 
 export interface TableContextState {
     /**
      * 自定义渲染列
      */
-    renderCell?: (props: TableCellProps<any>) => JSX.Element;
+    renderCell?: (props: TableCellProps) => JSX.Element;
     /**
      * 自定义渲染行
      */
-    renderRow?: (props: TableRowProps<any>) => JSX.Element;
+    renderRow?: (props: TableRowProps) => JSX.Element;
+    /**
+     * 文本对齐方式
+     */
+    align?: TableAlign;
 }
 
 export interface ExpanderContextState {
     /**
      * 自定义折叠图标
      */
-    expandIcon?: (props: CustomizeExpandIconProps) => JSX.Element;
+    expandIcon?: (props: ExpandIconProps) => JSX.Element;
     /**
      * 渲染扩展行内容
      */
@@ -273,39 +318,4 @@ export interface ExpanderContextState {
      * 某一行的折叠状态改变
      */
     onExpand?: (key: number, expanded: boolean) => void;
-}
-
-export interface BaseTableProps {
-    /**
-     * 附加类名
-     */
-    prefixCls?: string;
-    /**
-     * 根节点的附加类名
-     */
-    className?: string;
-    /**
-     * 内联样式
-     */
-    style?: React.CSSProperties;
-    /**
-     * 列配置
-     */
-    columns?: TableColumn[];
-    /**
-     * 要呈现的数据
-     */
-    data?: any[];
-    /**
-     * 表格是否固定
-     */
-    fixed?: false | "left" | "right";
-    /**
-     * 是否有表格体
-     */
-    hasBody?: boolean;
-    /**
-     * 是否有表格头
-     */
-    hasHead?: boolean;
 }

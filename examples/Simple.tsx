@@ -1,37 +1,43 @@
 import React from "react";
 import { Table } from "../src";
 import "./index.scss";
+import { TableColumn } from "../src/interface";
 
-const columns = [
-    { title: "title1", dataIndex: "a", key: "a", width: 100 },
-    { title: "title2", dataIndex: "b", key: "b", width: 100 },
-    { title: "title3", dataIndex: "c", key: "c", width: 100 },
-    { title: "title4", dataIndex: "b", key: "d", width: 100 },
-    { title: "title5", dataIndex: "b", key: "e", width: 100 },
-    { title: "title6", dataIndex: "b", key: "f", width: 100 },
-    { title: "title7", dataIndex: "b", key: "g", width: 100 },
-    { title: "title8", dataIndex: "b", key: "h", width: 100 },
-    { title: "title9", dataIndex: "b", key: "i", width: 100 },
-    { title: "title10", dataIndex: "b", key: "j", width: 100 },
-    { title: "title11", dataIndex: "b", key: "k", width: 100 },
-    { title: "title12", dataIndex: "b", key: "l", width: 100 }
+const columns: TableColumn[] = [
+    { title: "title1", dataIndex: "a", key: "a", width: 100, fixed: "left" },
+    { title: "title2", dataIndex: "b", key: "b", width: 100, fixed: "left" },
+    { title: "title3", dataIndex: "c", key: "c" },
+    { title: "title4", dataIndex: "b", key: "d" },
+    { title: "title5", dataIndex: "b", key: "e" },
+    {
+        title: "title6",
+        dataIndex: "b",
+        key: "f"
+        // render: () => <div style={{ height: "40px", lineHeight: "40px" }}>我很高</div>
+    },
+    { title: "title7", dataIndex: "b", key: "g" },
+    { title: "title8", dataIndex: "b", key: "h" },
+    { title: "title9", dataIndex: "b", key: "i" },
+    { title: "title10", dataIndex: "b", key: "j" },
+    { title: "title11", dataIndex: "b", key: "k" },
+    { title: "title12", dataIndex: "b", key: "l", width: 100, fixed: "right" }
 ];
 
 const data = [
-    { a: "123", b: "xx", d: 3, key: "1" },
-    { a: "cdd", b: "edd12221", d: 3, key: "2" },
-    { a: "133", c: "edd12221", d: 2, key: "3" },
-    { a: "133", c: "edd12221", d: 2, key: "4" },
-    { a: "133", c: "edd12221", d: 2, key: "5" },
-    { a: "133", c: "edd12221", d: 2, key: "6" },
-    { a: "133", c: "edd12221", d: 2, key: "7" },
-    { a: "133", c: "edd12221", d: 2, key: "8" },
-    { a: "133", c: "edd12221", d: 2, key: "9" }
+    { a: "123", b: "xxxxxxxx", d: 3, key: "1", title: "hello" },
+    { a: "cdd", b: "edd12221", d: 3, key: "2", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "3", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "4", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "5", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "6", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "7", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "8", title: "hello" },
+    { a: "133", c: "edd12221", d: 2, key: "9", title: "hello" }
 ];
-export default function() {
+export default function () {
     return (
         <div className="table-demo">
-            <Table columns={columns} data={data} />
+            <Table scroll={{ x: 1200, y: 300 }} columns={columns} data={data} />
         </div>
     );
 }

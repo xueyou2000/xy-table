@@ -17,7 +17,7 @@ function BaseTable(props: BaseTableProps) {
         expanderContext.getFullColumns(columns).forEach((x) => {
             if (x.title !== ExpandFlag) {
                 cols.push(<col style={x.width ? { width: x.width, minWidth: x.width } : null} />);
-                ths.push(<th className={x.fixed ? `${prefixCls}-fixed-columns-in-body` : null}>{x.title}</th>);
+                ths.push(<th className={!!x.fixed && !fixed ? `${prefixCls}-fixed-columns-in-body` : null}>{x.title}</th>);
             } else {
                 cols.push(<col className={`${prefixCls}-expand-icon-col`} />);
                 ths.push(<th className={`${prefixCls}-expand-icon-th`} rowSpan={1} />);

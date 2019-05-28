@@ -1,35 +1,35 @@
-import React, { useContext } from "react";
 import classNames from "classnames";
+import React, { useContext } from "react";
+import { ExpanderContext, TableContext } from "./Context";
+import ExpandIcon from "./Expander/ExpandIcon";
+import ExpandRow from "./Expander/ExpandRow";
 import { TableRowProps } from "./interface";
-import { TableContext, ExpanderContext } from "./Context";
-import TableCell from "./TableCell";
-import ExpandIcon from "./ExpandIcon";
-import ExpandRow from "./ExpandRow";
 import { ExpandFlag } from "./Table";
+import TableCell from "./TableCell";
 
-function TableRow(props: TableRowProps<any>) {
+function TableRow(props: TableRowProps) {
     const { prefixCls, className, columns, record, fixed, rowIndex } = props;
     const context = useContext(TableContext);
-    const expanderContext = useContext(ExpanderContext);
-    const expandIcon = <ExpandIcon record={record} prefixCls={prefixCls} rowIndex={rowIndex} />;
-    const expanded = expanderContext.expandedRowKeys.some((x) => x === rowIndex);
+    const epContext = useContext(ExpanderContext);
+    const expandIcon = <ExpandIcon record={record} prefixCls={prefixCls} rowIndex={rowIndex} onClick={null} />;
+    const expanded = epContext.expandedRowKeys.some((x) => x === rowIndex);
 
     function clickHandle() {
-        if (expanderContext.expandRowByClick) {
-            expanderContext.onExpand(rowIndex, !expanded);
+        if (epContext.expandRowByClick) {
+            epContext.onExpand(rowIndex, !expanded);
         }
     }
 
-    const content = expanderContext.getFullColumns(columns).map((x, i) => {
+    const content = epContext.getFullColumns(columns).map((x, i) => {
         if (x.title !== ExpandFlag) {
             return (
                 <TableCell
-                    prefixCls={prefixCls}
-                    expandIcon={expanderContext.expandIconAsCell === false && expanderContext.showExpandIcon && i === expanderContext.expandIconColumnIndex ? expandIcon : null}
-                    record={record}
-                    fixed={fixed}
-                    rowIndex={rowIndex}
                     column={x}
+                    fixed={fixed}
+                    record={record}
+                    rowIndex={rowIndex}
+                    prefixCls={prefixCls}
+                    expandIcon={epContext.expandIconAsCell === false && epContext.showExpandIcon && i === epContext.expandIconColumnIndex ? expandIcon : null}
                 />
             );
         } else {
@@ -40,8 +40,8 @@ function TableRow(props: TableRowProps<any>) {
     const _props = {
         className: classNames(`${prefixCls}-row`, className),
         key: rowIndex,
-        onClick: clickHandle,
-        children: content
+        children: content,
+        onClick: clickHandle
     };
 
     function renderRow() {
@@ -55,7 +55,7 @@ function TableRow(props: TableRowProps<any>) {
     return (
         <React.Fragment>
             {renderRow()}
-            {expanderContext.expandedRowRender && <ExpandRow prefixCls={prefixCls} rowIndex={rowIndex} record={record} columns={columns} expanded={expanded} expandedRowRender={expanderContext.expandedRowRender} />}
+            {epContext.expandedRowRender && <ExpandRow prefixCls={prefixCls} rowIndex={rowIndex} record={record} columns={columns} expanded={expanded} expandedRowRender={epContext.expandedRowRender} />}
         </React.Fragment>
     );
 }

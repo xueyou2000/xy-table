@@ -40,6 +40,7 @@ $Table: "xy-table";
 
     td {
         border-bottom: 1px solid #e9e9e9;
+        box-sizing: border-box;
     }
 
     td:empty:after {
@@ -76,8 +77,6 @@ $Table: "xy-table";
     pointer-events: none;
 }
 
-
-
 .#{$Table}-fixed-header {
     .#{$Table}-scroll {
         .#{$Table}-header {
@@ -85,4 +84,58 @@ $Table: "xy-table";
             background: #f7f7f7;
         }
     }
+
+    .#{$Table}-body-inner {
+        height: 100%;
+        overflow: scroll;
+    }
+
+    .#{$Table}-fixed-left .#{$Table}-body-inner {
+        padding-right: 0;
+    }
+}
+
+.#{$Table}-fixed-left,
+.#{$Table}-fixed-right {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+
+    td {
+        background: #fff;
+    }
+}
+
+.#{$Table}-fixed-left {
+    left: 0;
+    box-shadow: 4px 0 4px rgba(100, 100, 100, 0.1);
+
+    .#{$Table}-body-inner {
+        margin-right: -20px;
+        padding-right: 20px;
+    }
+
+}
+.#{$Table}-fixed-right {
+    right: 0;
+    box-shadow: -4px 0 4px rgba(100, 100, 100, 0.1);
+}
+
+.#{$Table}-scroll-position-left {
+    .#{$Table}-fixed-left {
+        box-shadow: none;
+
+        td {
+            background: #fff;
+        }
+    }
+}
+.#{$Table}-scroll-position-right {
+    .#{$Table}-fixed-right {
+        box-shadow: none;
+    }
+}
+
+.#{$Table}-cell.#{$Table}-cell-align-right {
+    text-align: right;
 }
