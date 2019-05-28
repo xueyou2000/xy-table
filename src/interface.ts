@@ -148,7 +148,9 @@ export interface ExpandProps<RecodeData> {
     expandIconColumnIndex?: number;
 }
 
-export interface TableProps<RecodeData = any> extends ExpandProps<RecodeData>, TableContextState {
+export interface TableProps<RecodeData = any> extends ExpandProps<RecodeData>, TableContextState, ScrollTableProps {}
+
+export interface ScrollTableProps {
     /**
      * 附加类名
      */
@@ -162,18 +164,13 @@ export interface TableProps<RecodeData = any> extends ExpandProps<RecodeData>, T
      */
     style?: React.CSSProperties;
     /**
-     * 是否固定页眉
-     * @description 当垂直滚动条时，是否固定页眉
-     */
-    useFixedHeader?: boolean;
-    /**
      * 列配置
      */
     columns?: TableColumn[];
     /**
      * 要呈现的数据
      */
-    data?: RecodeData[];
+    data?: any[];
     /**
      * 空内容时的占位符
      */

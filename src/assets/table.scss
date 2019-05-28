@@ -12,6 +12,11 @@ $Table: "xy-table";
 
     .#{$Table}-scroll {
         overflow: auto;
+
+        table {
+            width: auto;
+            min-width: 100%;
+        }
     }
 
     table {
@@ -69,4 +74,15 @@ $Table: "xy-table";
 .#{$Table}-fixed-columns-in-body {
     visibility: hidden;
     pointer-events: none;
+}
+
+
+
+.#{$Table}-fixed-header {
+    .#{$Table}-scroll {
+        .#{$Table}-header {
+            overflow: hidden;
+            background: #f7f7f7;
+        }
+    }
 }

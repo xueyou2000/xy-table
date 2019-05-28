@@ -4,6 +4,7 @@ import React from "react";
 import BaseTable from "./BaseTable";
 import { TableContext, ExpanderContext } from "./Context";
 import { useControll } from "utils-hooks";
+import ScrollTable from "./ScrollTable";
 
 export const ExpandFlag = "_expand_flag";
 
@@ -14,10 +15,10 @@ function Table(props: TableProps) {
         style,
         columns,
         data,
-        emptyText = "暂无数据",
         renderCell,
         renderRow,
         scroll,
+        emptyText,
         expandedRowRender,
         expandRowByClick,
         expandIconAsCell,
@@ -26,7 +27,24 @@ function Table(props: TableProps) {
         onExpand,
         onExpandedRowsChange
     } = props;
-    const classString = classNames(prefixCls, className, `${prefixCls}-scroll-position-left`);
+    const classString = classNames(prefixCls, className, `${prefixCls}-scroll-position-left`, {
+        [`${prefixCls}-fixed-header`]: scroll && !!scroll.y
+    });
+    const bodyStyle: React.CSSProperties = {};
+    const bodyTableStyle: React.CSSProperties = {};
+    if (scroll && scroll.x) {
+        bodyStyle.overflowX = "scroll";
+        if (typeof scroll.x === "string" || typeof scroll.x === "number") {
+            bodyTableStyle.width = scroll.x;
+        }
+    }
+    if (scroll && scroll.y) {
+        bodyStyle.overflowY = "scroll";
+        if (typeof scroll.y === "string" || typeof scroll.y === "number") {
+            bodyStyle.maxHeight = scroll.y;
+        }
+    }
+
     const [expandedRowKeys, setExpandedRowKeys, isControll] = useControll<number[]>(props, "expandedRowKeys", "defaultExpandAllRows", []);
 
     function changeExpandedRowKeys(keys: number[]) {
@@ -71,12 +89,7 @@ function Table(props: TableProps) {
                     <ExpanderContext.Provider
                         value={{ expandedRowRender, expandRowByClick, showExpandIcon: !!expandedRowRender, expandIcon, getFullColumns, expandIconAsCell, expandIconColumnIndex, expandedRowKeys, onExpand: changeExpandHandle }}
                     >
-                        <div className={`${prefixCls}-scroll`}>
-                            <div className={`${prefixCls}-body`} style={{ overflowX: scroll && scroll.x ? "scroll" : null, overflowY: scroll && scroll.y ? "scroll" : null }}>
-                                <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} style={scroll && scroll.x ? { width: (scroll as any).x } : null} columns={columns} data={data} fixed={false} hasBody={true} hasHead={true} />
-                                {(!data || data.length === 0) && <div className={`${prefixCls}-placeholder`}>{emptyText}</div>}
-                            </div>
-                        </div>
+                        <ScrollTable prefixCls={prefixCls} columns={columns} data={data} scroll={scroll} emptyText={emptyText} />
                     </ExpanderContext.Provider>
                 </TableContext.Provider>
             </div>
