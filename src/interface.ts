@@ -1,0 +1,314 @@
+export interface CustomizeExpandIconProps {
+    expanded: boolean;
+    record: any;
+    onClick: () => void;
+}
+
+export interface TableColumn {
+    /**
+     * key
+     */
+    key?: string | number;
+    /**
+     * 列标题
+     */
+    title: React.ReactNode;
+    /**
+     * 数据字段名
+     */
+    dataIndex?: string;
+    /**
+     * 列样式
+     */
+    className?: string;
+    /**
+     * 列宽度
+     */
+    width?: number | string;
+    /**
+     * 是否固定列
+     * @description 水平滚动时，此列将被固定
+     */
+    fixed?: boolean | "left" | "right";
+    /**
+     * 文本对齐方式
+     */
+    align?: "left" | "right";
+    /**
+     * 自定义渲染
+     */
+    render?: (record: any, rowIndex: number) => React.ReactNode;
+}
+
+export interface TableCellProps<RecodeData> {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
+     * 列配置
+     */
+    column?: TableColumn;
+    /**
+     * 列数据
+     */
+    record: RecodeData;
+    /**
+     * 所在行
+     */
+    rowIndex: number;
+    /**
+     * 扩展内容图标
+     * @description 当 expandIconAsCell = false 时才在列中显示
+     */
+    expandIcon?: React.ReactNode | false;
+    /**
+     * 表格是否固定
+     */
+    fixed?: false | "left" | "right";
+}
+
+export interface TableRowProps<RecodeData> {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
+     * 列配置
+     */
+    columns?: TableColumn[];
+    /**
+     * 要呈现的数据
+     */
+    record?: RecodeData;
+    /**
+     * 行索引
+     */
+    rowIndex: number;
+    /**
+     * 表格是否固定
+     */
+    fixed?: false | "left" | "right";
+}
+
+export interface ExpandProps<RecodeData> {
+    /**
+     * 自定义折叠图标
+     */
+    expandIcon?: (props: CustomizeExpandIconProps) => JSX.Element;
+    /**
+     * 是否点击行,切换扩展内容的显示/隐藏
+     */
+    expandRowByClick?: boolean;
+    /**
+     * 扩展图标是否作为单独的列
+     */
+    expandIconAsCell?: boolean;
+    /**
+     * 渲染扩展行内容
+     */
+    expandedRowRender?: (record: RecodeData, expanded: boolean) => React.ReactNode;
+    /**
+     * 当前展开的扩展内容
+     * @description 这里的 key 与 行索引匹配
+     */
+    expandedRowKeys?: number[];
+    /**
+     * 默认展开的扩展内容
+     */
+    defaultExpandAllRows?: number[];
+    /**
+     * 展开的扩展内容改变
+     */
+    onExpandedRowsChange?: (rows: number[]) => void;
+    /**
+     * 展开/折叠事件
+     */
+    onExpand?: (record: RecodeData, expanded: boolean) => void;
+    /**
+     * 扩展图标列索引
+     * @description 当 expandIconAsCell 为 false 时候，指定将扩展图标插入到哪一列
+     */
+    expandIconColumnIndex?: number;
+}
+
+export interface TableProps<RecodeData = any> extends ExpandProps<RecodeData>, TableContextState {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
+     * 是否固定页眉
+     * @description 当垂直滚动条时，是否固定页眉
+     */
+    useFixedHeader?: boolean;
+    /**
+     * 列配置
+     */
+    columns?: TableColumn[];
+    /**
+     * 要呈现的数据
+     */
+    data?: RecodeData[];
+    /**
+     * 空内容时的占位符
+     */
+    emptyText?: React.ReactNode;
+    /**
+     * 表格是否可以在x/y方向滚动
+     */
+    scroll?: { x?: boolean | number | string; y?: boolean | number | string };
+}
+
+export interface ExpandIconProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 要呈现的数据
+     */
+    record?: any;
+    /**
+     * 表格行索引
+     */
+    rowIndex: number;
+}
+
+export interface ExpandRowProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 行索引
+     */
+    rowIndex: number;
+    /**
+     * 数据
+     */
+    record: any;
+    /**
+     * 列配置
+     */
+    columns: TableColumn[];
+    /**
+     * 是否折叠
+     */
+    expanded?: boolean;
+    /**
+     * 渲染扩展行内容
+     */
+    expandedRowRender?: (record: any, expanded: boolean) => React.ReactNode;
+}
+
+export interface TableContextState {
+    /**
+     * 自定义渲染列
+     */
+    renderCell?: (props: TableCellProps<any>) => JSX.Element;
+    /**
+     * 自定义渲染行
+     */
+    renderRow?: (props: TableRowProps<any>) => JSX.Element;
+}
+
+export interface ExpanderContextState {
+    /**
+     * 自定义折叠图标
+     */
+    expandIcon?: (props: CustomizeExpandIconProps) => JSX.Element;
+    /**
+     * 渲染扩展行内容
+     */
+    expandedRowRender?: (record: any, expanded: boolean) => React.ReactNode;
+    /**
+     * 是否点击行,切换扩展内容的显示/隐藏
+     */
+    expandRowByClick?: boolean;
+    /**
+     * 是否显示折叠图标
+     */
+    showExpandIcon?: boolean;
+    /**
+     * 获取列配置
+     * @description 扩展图标作为独立行时，多插入一个特殊配置
+     */
+    getFullColumns?: (baseColumns: TableColumn[]) => TableColumn[];
+    /**
+     * 扩展图标是否作为单独的列
+     */
+    expandIconAsCell?: boolean;
+    /**
+     * 扩展图标列索引
+     * @description 当 expandIconAsCell 为 false 时候，指定将扩展图标插入到哪一列
+     */
+    expandIconColumnIndex?: number;
+    /**
+     * 扩展内容展开的keys
+     */
+    expandedRowKeys?: number[];
+    /**
+     * 某一行的折叠状态改变
+     */
+    onExpand?: (key: number, expanded: boolean) => void;
+}
+
+export interface BaseTableProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
+     * 列配置
+     */
+    columns?: TableColumn[];
+    /**
+     * 要呈现的数据
+     */
+    data?: any[];
+    /**
+     * 表格是否固定
+     */
+    fixed?: false | "left" | "right";
+    /**
+     * 是否有表格体
+     */
+    hasBody?: boolean;
+    /**
+     * 是否有表格头
+     */
+    hasHead?: boolean;
+}
