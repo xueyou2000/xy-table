@@ -57,8 +57,8 @@ function Table(props: TableProps) {
 
     function onRowHeightUpdate(_rowsHeight: number[]) {
         const element = ref.current as HTMLElement;
-        const leftFixedRows = element.querySelectorAll(`.${prefixCls}-fixed-left .${prefixCls}-cell`);
-        const rightFixedRows = element.querySelectorAll(`.${prefixCls}-fixed-right .${prefixCls}-cell`);
+        const leftFixedRows = element.querySelectorAll(`.${prefixCls}-fixed-left .${prefixCls}-row`);
+        const rightFixedRows = element.querySelectorAll(`.${prefixCls}-fixed-right .${prefixCls}-row`);
 
         function syncRowsHeight(rows: NodeListOf<Element>) {
             if (rows.length < 0) {

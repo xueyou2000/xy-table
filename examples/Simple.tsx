@@ -37,7 +37,7 @@ const data = [
 export default function () {
     return (
         <div className="table-demo">
-            <Table scroll={{ x: 1200, y: 300 }} columns={columns} data={data} />
+            <Table scroll={{ x: 1200 }} columns={columns} data={data} />
         </div>
     );
 }
