@@ -275,10 +275,6 @@ export interface TableProps extends ExpandProps, TableContextState, SelectedRows
      * 空内容时的占位符
      */
     emptyText?: React.ReactNode;
-    /**
-     * 文本对齐方式
-     */
-    align?: TableAlign;
 }
 
 /**

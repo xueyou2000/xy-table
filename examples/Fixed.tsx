@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Table } from "../src";
+import Table from "../src";
 import "./index.scss";
 import { TableColumn } from "../src/interface";
 

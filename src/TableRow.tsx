@@ -32,6 +32,7 @@ function TableRow(props: TableRowProps) {
         if (x.title !== ExpandFlag) {
             return (
                 <TableCell
+                    key={`${rowIndex}-${x.key}`}
                     column={x}
                     fixed={fixed}
                     record={record}
@@ -41,7 +42,11 @@ function TableRow(props: TableRowProps) {
                 />
             );
         } else {
-            return <td className={`${prefixCls}-expand-icon-cell`}>{expandIcon}</td>;
+            return (
+                <td key={`${rowIndex}-${ExpandFlag}`} className={`${prefixCls}-expand-icon-cell`}>
+                    {expandIcon}
+                </td>
+            );
         }
     });
 
@@ -49,9 +54,8 @@ function TableRow(props: TableRowProps) {
         className: classNames(`${prefixCls}-row`, className, { [`${prefixCls}-hover`]: context.hoverRowIndex === rowIndex }),
         onMouseEnter,
         onMouseLeave,
-        key: rowIndex,
         children: content,
-        onClick: clickHandle,
+        onClick: clickHandle
     };
 
     function renderRow() {

@@ -56,7 +56,11 @@ $Table: "xy-table";
         }
     }
 }
-
+.#{$Table}-align-right {
+    thead th {
+        text-align: right;
+    }
+}
 .#{$Table}-row.#{$Table}-hover {
     background: #eaf8fe;
 

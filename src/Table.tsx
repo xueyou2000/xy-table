@@ -16,8 +16,8 @@ function Table(props: TableProps) {
         prefixCls = "xy-table",
         className,
         style,
-        columns,
-        data,
+        columns = [],
+        data = [],
         renderCell,
         renderRow,
         scroll = {},
@@ -25,7 +25,7 @@ function Table(props: TableProps) {
         emptyText = <Empty />,
         expandedRowRender,
         expandRowByClick,
-        expandIconAsCell,
+        expandIconAsCell = false,
         expandIcon,
         expandIconColumnIndex = 0
     } = props;
@@ -34,7 +34,8 @@ function Table(props: TableProps) {
     const [hoverRowIndex, setHoverRowIndex] = useState(null);
     const getCheckboxColumn = useSelectedRows(props);
     const classString = classNames(prefixCls, className, `${prefixCls}-scroll-position-${scrollPosition}`, {
-        [`${prefixCls}-fixed-header`]: scroll && !!scroll.y
+        [`${prefixCls}-fixed-header`]: scroll && !!scroll.y,
+        [`${prefixCls}-align-${align}`]: align
     });
     const ref = useRef(null);
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "../src";
+import Table from "../src";
 import "./index.scss";
 import { ExpandIconProps } from "../src/Expander/interface";
 

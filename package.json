@@ -1,6 +1,6 @@
 {
     "name": "xy-table",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "基于 React Hooks 的表格组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",

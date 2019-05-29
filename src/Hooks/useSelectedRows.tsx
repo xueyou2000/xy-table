@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useControll } from "utils-hooks";
-import { TableProps, TableColumn } from '../interface';
-import { Checkbox } from 'xy-checkbox';
-import 'xy-checkbox/assets/index.css'
+import { TableProps, TableColumn } from "../interface";
+import { Checkbox } from "xy-checkbox";
+import "xy-checkbox/assets/index.css";
 
 export default function useSelectedRows(props: TableProps) {
-    const { data, onChange, disabledRowIndexs } = props;
+    const { data = [], onChange, disabledRowIndexs } = props;
     const availableSelecteds = [];
     data.forEach((d, i) => {
         if (!disabledRowIndexs || (disabledRowIndexs && !disabledRowIndexs(d))) {
@@ -13,8 +13,8 @@ export default function useSelectedRows(props: TableProps) {
         }
     });
 
-    const selectMode = 'onChange' in props;
-    const [selectedRowIndexs, setSelectedRowIndexs, isControll] = useControll(props, 'selectedRowIndexs', 'defaultSelectedRowIndexs', []);
+    const selectMode = "onChange" in props;
+    const [selectedRowIndexs, setSelectedRowIndexs, isControll] = useControll(props, "selectedRowIndexs", "defaultSelectedRowIndexs", []);
     const [indeterminate, setIndeterminate] = useState(selectedRowIndexs.length !== availableSelecteds.length && selectedRowIndexs.length !== 0);
     const [checkedAll, setCheckedAll] = useState(selectedRowIndexs.length === availableSelecteds.length);
 
@@ -39,7 +39,7 @@ export default function useSelectedRows(props: TableProps) {
         }
 
         if (onChange) {
-            onChange(data.filter((x, i) => indexs.some(index => index === i)), indexs);
+            onChange(data.filter((x, i) => indexs.some((index) => index === i)), indexs);
         }
     }
 
@@ -65,14 +65,16 @@ export default function useSelectedRows(props: TableProps) {
     }
 
     function getCheckboxColumn(columns: TableColumn[]) {
-        if (!selectMode) { return columns; }
+        if (!selectMode) {
+            return columns;
+        }
         const checkboxColumn: TableColumn = {
-            key: 'checkbox',
+            key: "checkbox",
             title: <Checkbox disabled={data.length === 0} checked={checkedAll && data.length !== 0} indeterminate={indeterminate} onChange={onToggleCheckedAll} />,
             width: 60,
             fixed: columns.length > 1 ? columns[0].fixed : false,
             render: (record: any, rowIndex: number) => {
-                return <Checkbox value={rowIndex} disabled={!availableSelecteds.some(x => x === rowIndex)} checked={selectedRowIndexs.some(x => x === rowIndex)} onChange={onSwitchSelectedRow} />
+                return <Checkbox value={rowIndex} disabled={!availableSelecteds.some((x) => x === rowIndex)} checked={selectedRowIndexs.some((x) => x === rowIndex)} onChange={onSwitchSelectedRow} />;
             }
         };
         return [checkboxColumn, ...columns];

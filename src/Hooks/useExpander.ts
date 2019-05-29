@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useControll } from "utils-hooks";
 import { TableProps, TableColumn } from "../interface";
-import { ExpandFlag } from '../Table';
-
+import { ExpandFlag } from "../Table";
 
 /**
  * 管理折叠功能
  * @param props
  */
 export default function useExpander(props: TableProps): [number[], (key: number, expanded: boolean) => void, (baseColumns: TableColumn[]) => TableColumn[]] {
-    const { onExpandedRowsChange, onExpand, data, expandIconAsCell, expandedRowRender, expandIconColumnIndex = 0 } = props;
+    const { onExpandedRowsChange, onExpand, data, expandIconAsCell = false, expandedRowRender, expandIconColumnIndex = 0 } = props;
 
     const [expandedRowKeys, setExpandedRowKeys, isControll] = useControll<number[]>(props, "expandedRowKeys", "defaultExpandAllRows", []);
 

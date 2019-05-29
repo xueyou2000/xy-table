@@ -13,7 +13,7 @@ function ExpandRow(props: ExpandRowProps) {
     }
 
     return (
-        <tr key={`${rowIndex}-extra-row`} className={`${prefixCls}-expand-row`} style={{ display: expanded === false ? "none" : null }}>
+        <tr key={`-extra-row${rowIndex}`} className={`${prefixCls}-expand-row`} style={{ display: expanded === false ? "none" : null }}>
             {context.expandIconAsCell && indents}
             <td colSpan={context.getFullColumns(columns).length}>{expandedRowRender(record, expanded)}</td>
         </tr>

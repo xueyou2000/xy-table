@@ -21,7 +21,7 @@ function TableCell(props: TableCellProps) {
 
     const _props = {
         className: classString,
-        key: column.key,
+        // key: column.key,
         children: content
     };
 
