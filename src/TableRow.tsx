@@ -22,7 +22,6 @@ function TableRow(props: TableRowProps) {
 
     function onMouseEnter(e: React.MouseEvent<HTMLElement>) {
         context.setRowIndex(rowIndex);
-        console.log('set', rowIndex);
     }
 
     function onMouseLeave(e: React.MouseEvent<HTMLElement>) {

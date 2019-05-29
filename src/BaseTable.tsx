@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import { BaseTableProps } from "./interface";
 import React, { useContext } from "react";
 import { ExpanderContext } from "./Context";
-import TableRow from "./TableRow";
+import { BaseTableProps } from "./interface";
 import { ExpandFlag } from "./Table";
+import TableRow from "./TableRow";
 
 function BaseTable(props: BaseTableProps) {
     const { prefixCls, className, style, columns, fixed = false, hasBody = true, hasHead = true, data } = props;
@@ -38,7 +38,7 @@ function BaseTable(props: BaseTableProps) {
             {hasBody && (
                 <tbody className={`${prefixCls}-tbody`}>
                     {data.map((d, i) => (
-                        <TableRow prefixCls={prefixCls} fixed={fixed} columns={columns} record={d} rowIndex={i} />
+                        <TableRow key={i} prefixCls={prefixCls} fixed={fixed} columns={columns} record={d} rowIndex={i} />
                     ))}
                 </tbody>
             )}

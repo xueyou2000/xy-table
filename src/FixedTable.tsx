@@ -1,9 +1,13 @@
-import React, { useRef, useLayoutEffect, useEffect } from "react";
+import React, { useContext } from "react";
 import BaseTable from "./BaseTable";
-import { FixedTableProps, ScrollPosition, TableColumn } from "./interface";
+import { TableContext } from "./Context";
+import { FixedTableProps, TableColumn } from "./interface";
+import GenericTable from "./GenericTable";
 
 function FixedTable(props: FixedTableProps) {
-    const { prefixCls, columns, data, scroll, fixed, onScroll } = props;
+    const { prefixCls, data, scroll, fixed, onScroll, emptyText } = props;
+    const context = useContext(TableContext);
+    const columns = fixed === "left" ? context.getCheckboxColumn(props.columns) : props.columns;
     const bodyStyle: React.CSSProperties = {};
     const bodyOuterStyle: React.CSSProperties = {};
     if (scroll && scroll.x) {
@@ -20,7 +24,7 @@ function FixedTable(props: FixedTableProps) {
 
     const fixedColumns: TableColumn[] = [];
     let isBreak = false;
-    for (let i = columns.findIndex(x => x.fixed === fixed); i < columns.length; ++i) {
+    for (let i = columns.findIndex((x) => x.fixed === fixed); i < columns.length; ++i) {
         const col = columns[i];
         if (!isBreak && col.fixed === fixed) {
             fixedColumns.push(col);
@@ -34,19 +38,38 @@ function FixedTable(props: FixedTableProps) {
     }
 
     return (
-        <div className={`${prefixCls}-fixed-${fixed}`}>
-            {scroll && !!scroll.y && (
-                <div className={`${prefixCls}-header`}>
-                    <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} columns={fixedColumns} data={data} fixed={fixed} hasBody={false} hasHead={true} />
+        <GenericTable
+            prefixCls={prefixCls}
+            className={`${prefixCls}-fixed-${fixed}`}
+            fixed={fixed}
+            columns={fixedColumns}
+            scroll={scroll}
+            data={data}
+            emptyText={emptyText}
+            renderTableBody={(bodyTable) => (
+                <div className={`${prefixCls}-body-outer`} style={bodyOuterStyle}>
+                    <div className={`${prefixCls}-body-inner`} style={bodyStyle} onScroll={onScroll}>
+                        {bodyTable}
+                    </div>
                 </div>
             )}
-            <div className={`${prefixCls}-body-outer`} style={bodyOuterStyle}>
-                <div className={`${prefixCls}-body-inner`} style={bodyStyle} onScroll={onScroll} >
-                    <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} columns={fixedColumns} data={data} fixed={fixed} hasBody={true} hasHead={!scroll || !scroll.y} />
-                </div>
-            </div>
-        </div>
+        />
     );
+
+    // return (
+    //     <div className={`${prefixCls}-fixed-${fixed}`}>
+    //         {scroll && !!scroll.y && (
+    //             <div className={`${prefixCls}-header`}>
+    //                 <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} columns={fixedColumns} data={data} fixed={fixed} hasBody={false} hasHead={true} />
+    //             </div>
+    //         )}
+    //         <div className={`${prefixCls}-body-outer`} style={bodyOuterStyle}>
+    //             <div className={`${prefixCls}-body-inner`} style={bodyStyle} onScroll={onScroll}>
+    //                 <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} columns={fixedColumns} data={data} fixed={fixed} hasBody={true} hasHead={!scroll || !scroll.y} />
+    //             </div>
+    //         </div>
+    //     </div>
+    // );
 }
 
 export default React.memo(FixedTable);

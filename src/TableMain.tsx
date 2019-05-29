@@ -1,9 +1,13 @@
-import React, { useRef, useLayoutEffect, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import BaseTable from "./BaseTable";
-import { TableMainProps, ScrollPosition } from "./interface";
+import { TableContext } from "./Context";
+import { ScrollPosition, TableMainProps } from "./interface";
+import GenericTable from "./GenericTable";
 
 function TableMain(props: TableMainProps) {
-    const { prefixCls, columns, data, emptyText = "暂无数据", scroll, onScrollLeft, onRowHeightUpdate } = props;
+    const { prefixCls, data, emptyText = "暂无数据", scroll, onScrollLeft, onRowHeightUpdate } = props;
+    const context = useContext(TableContext);
+    const columns = context.getCheckboxColumn(props.columns);
     const headerRef = useRef(null);
     const bodyRef = useRef(null);
     const bodyStyle: React.CSSProperties = {};
@@ -53,18 +57,37 @@ function TableMain(props: TableMainProps) {
     }, [data]);
 
     return (
-        <div className={`${prefixCls}-scroll`}>
-            {scroll && !!scroll.y && (
-                <div className={`${prefixCls}-header`} ref={headerRef}>
-                    <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} style={bodyTableStyle} columns={columns} data={data} fixed={false} hasBody={false} hasHead={true} />
+        <GenericTable
+            prefixCls={prefixCls}
+            className={`${prefixCls}-scroll`}
+            headerRef={headerRef}
+            bodyTableStyle={bodyTableStyle}
+            fixed={false}
+            columns={columns}
+            scroll={scroll}
+            data={data}
+            emptyText={emptyText}
+            renderTableBody={(bodyTable) => (
+                <div className={`${prefixCls}-body`} style={bodyStyle} onScroll={onScroll} ref={bodyRef}>
+                    {bodyTable}
                 </div>
             )}
-            <div className={`${prefixCls}-body`} style={bodyStyle} onScroll={onScroll} ref={bodyRef}>
-                <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} style={bodyTableStyle} columns={columns} data={data} fixed={false} hasBody={true} hasHead={!scroll || !scroll.y} />
-                {(!data || data.length === 0) && <div className={`${prefixCls}-placeholder`}>{emptyText}</div>}
-            </div>
-        </div>
+        />
     );
+
+    // return (
+    //     <div className={`${prefixCls}-scroll`}>
+    //         {scroll && !!scroll.y && (
+    //             <div className={`${prefixCls}-header`} ref={headerRef}>
+    //                 <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} style={bodyTableStyle} columns={columns} data={data} fixed={false} hasBody={false} hasHead={true} />
+    //             </div>
+    //         )}
+    //         <div className={`${prefixCls}-body`} style={bodyStyle} onScroll={onScroll} ref={bodyRef}>
+    //             <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} style={bodyTableStyle} columns={columns} data={data} fixed={false} hasBody={true} hasHead={!scroll || !scroll.y} />
+    //             {(!data || data.length === 0) && <div className={`${prefixCls}-placeholder`}>{emptyText}</div>}
+    //         </div>
+    //     </div>
+    // );
 }
 
 export default React.memo(TableMain);

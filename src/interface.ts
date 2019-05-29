@@ -14,7 +14,7 @@ export type TableAlign = "left" | "right";
 /**
  * 自定义折叠图标
  */
-export interface CustomizeExpandIconProps { }
+export interface CustomizeExpandIconProps {}
 
 /**
  * 表格列配置
@@ -171,6 +171,10 @@ export interface FixedTableProps {
      */
     prefixCls?: string;
     /**
+     * 空内容时的占位符
+     */
+    emptyText?: React.ReactNode;
+    /**
      * 列配置
      */
     columns?: TableColumn[];
@@ -193,9 +197,56 @@ export interface FixedTableProps {
 }
 
 /**
+ * 通用表格
+ * @description 封装主体表格和悬浮表格通用部分
+ */
+export interface GenericTableProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 表格头引用
+     */
+    headerRef?: React.MutableRefObject<any>;
+    /**
+     * 表格体样式
+     */
+    bodyTableStyle?: React.CSSProperties;
+    /**
+     * 列配置
+     */
+    columns?: TableColumn[];
+    /**
+     * 表格是否可以在x/y方向滚动
+     */
+    scroll?: { x?: boolean | number | string; y?: boolean | number | string };
+    /**
+     * 要呈现的数据
+     */
+    data?: any[];
+    /**
+     * 悬浮方向
+     */
+    fixed: "left" | "right" | false;
+    /**
+     * 空内容时的占位符
+     */
+    emptyText?: React.ReactNode;
+    /**
+     * 渲染表格体
+     */
+    renderTableBody?: (bodyTable: React.ReactNode) => React.ReactNode;
+}
+
+/**
  * 表格
  */
-export interface TableProps extends ExpandProps, TableContextState {
+export interface TableProps extends ExpandProps, TableContextState, SelectedRowsProps {
     /**
      * 附加类名
      */
@@ -289,6 +340,10 @@ export interface TableContextState {
      * 设置鼠标悬停行
      */
     setRowIndex?: (index: number) => void;
+    /**
+     * 获取复选框列定义
+     */
+    getCheckboxColumn?: (columns: TableColumn[]) => TableColumn[];
 }
 
 export interface ExpanderContextState {
@@ -330,4 +385,27 @@ export interface ExpanderContextState {
      * 某一行的折叠状态改变
      */
     onExpand?: (key: number, expanded: boolean) => void;
+}
+
+/**
+ * 选择行
+ */
+export interface SelectedRowsProps {
+    /**
+     * 复选框选择行
+     */
+    selectedRowIndexs?: number[];
+    /**
+     * 默认复选框选择行
+     */
+    defaultSelectedRowIndexs?: number[];
+    /**
+     * 禁用选择行
+     * @description 返回 true 则禁用此行，不能选择
+     */
+    disabledRowIndexs?: (recode: any) => boolean;
+    /**
+     * 复选框选择事件
+     */
+    onChange?: (selectRecods: any[], selectedRowIndexs: number[]) => void;
 }
