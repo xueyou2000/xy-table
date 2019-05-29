@@ -5,7 +5,7 @@ import { ScrollPosition, TableMainProps } from "./interface";
 import GenericTable from "./GenericTable";
 
 function TableMain(props: TableMainProps) {
-    const { prefixCls, data, emptyText = "暂无数据", scroll, onScrollLeft, onRowHeightUpdate } = props;
+    const { prefixCls, data, scroll, onScrollLeft, emptyText, onRowHeightUpdate } = props;
     const context = useContext(TableContext);
     const columns = context.getCheckboxColumn(props.columns);
     const headerRef = useRef(null);
@@ -16,6 +16,7 @@ function TableMain(props: TableMainProps) {
         bodyStyle.overflowX = "scroll";
         if (typeof scroll.x === "string" || typeof scroll.x === "number") {
             bodyTableStyle.width = scroll.x;
+            bodyTableStyle.tableLayout = "fixed";
         }
     }
     if (scroll && scroll.y) {

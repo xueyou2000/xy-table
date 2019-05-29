@@ -24,7 +24,7 @@ function FixedTable(props: FixedTableProps) {
 
     const fixedColumns: TableColumn[] = [];
     let isBreak = false;
-    for (let i = columns.findIndex((x) => x.fixed === fixed); i < columns.length; ++i) {
+    for (let i = Math.max(columns.findIndex((x) => x.fixed === fixed), 0); i < columns.length; ++i) {
         const col = columns[i];
         if (!isBreak && col.fixed === fixed) {
             fixedColumns.push(col);

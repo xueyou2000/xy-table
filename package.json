@@ -50,7 +50,8 @@
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
         "utils-hooks": "^0.0.71",
-        "xy-checkbox": "^1.2.31"
+        "xy-checkbox": "^1.2.31",
+        "xy-empty": "^0.0.8"
     },
     "repository": {
         "type": "git",
@@ -58,7 +59,7 @@
     },
     "jest": {
         "transformIgnorePatterns": [
-            "<rootDir>/node_modules/(?!(utils-hooks|xy-checkbox))"
+            "<rootDir>/node_modules/(?!(utils-hooks|xy-checkbox|xy-empty))"
         ]
     }
 }

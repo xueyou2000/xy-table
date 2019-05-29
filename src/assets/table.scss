@@ -108,10 +108,15 @@ $Table: "xy-table";
     position: absolute;
     top: 0;
     overflow: hidden;
+    background: #fff;
 
-    td {
-        background: #fff;
+    .#{$Table}-placeholder {
+        visibility: hidden;
     }
+
+    // td {
+    //     background: #fff;
+    // }
 }
 
 .#{$Table}-fixed-left {
@@ -122,7 +127,6 @@ $Table: "xy-table";
         margin-right: -20px;
         padding-right: 20px;
     }
-
 }
 .#{$Table}-fixed-right {
     right: 0;

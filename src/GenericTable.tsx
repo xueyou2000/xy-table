@@ -1,5 +1,5 @@
-import React from 'react';
-import { GenericTableProps } from './interface';
+import React from "react";
+import { GenericTableProps } from "./interface";
 import BaseTable from "./BaseTable";
 
 function GenericTable(props: GenericTableProps) {
@@ -8,7 +8,7 @@ function GenericTable(props: GenericTableProps) {
     return (
         <div className={className}>
             {scroll && !!scroll.y && (
-                <div className={`${prefixCls}-header`} ref={headerRef}>
+                <div className={`${prefixCls}-header`} ref={headerRef} style={bodyTableStyle ? { overflowY: "scroll" } : null}>
                     <BaseTable prefixCls={prefixCls} className={`${prefixCls}-fixed`} style={bodyTableStyle} columns={columns} data={data} fixed={fixed} hasBody={false} hasHead={true} />
                 </div>
             )}

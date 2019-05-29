@@ -8849,6 +8849,15 @@ xy-divider@^0.0.2:
     react "^16.8.2"
     react-dom "^16.8.2"
 
+xy-empty@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.npm.taobao.org/xy-empty/download/xy-empty-0.0.8.tgz#605662136cee758f34402d7d0d6f936ef1c0b9e0"
+  integrity sha1-YFZiE2zudY80QC19DW+TbvHAueA=
+  dependencies:
+    classnames "^2.2.6"
+    react "^16.8.2"
+    react-dom "^16.8.2"
+
 xy-grid@^0.0.3:
   version "0.0.3"
   resolved "https://registry.npm.taobao.org/xy-grid/download/xy-grid-0.0.3.tgz#1917f89928d86f68f5231e986095ee47b5dda00d"

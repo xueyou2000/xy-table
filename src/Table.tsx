@@ -6,11 +6,29 @@ import useExpander from "./Hooks/useExpander";
 import useSelectedRows from "./Hooks/useSelectedRows";
 import { ScrollPosition, TableProps } from "./interface";
 import TableMain from "./TableMain";
+import Empty from "xy-empty";
+import "xy-empty/assets/index.css";
 
 export const ExpandFlag = "_expand_flag";
 
 function Table(props: TableProps) {
-    const { prefixCls = "xy-table", className, style, columns, data, renderCell, renderRow, scroll = {}, align = "left", emptyText, expandedRowRender, expandRowByClick, expandIconAsCell, expandIcon, expandIconColumnIndex = 0 } = props;
+    const {
+        prefixCls = "xy-table",
+        className,
+        style,
+        columns,
+        data,
+        renderCell,
+        renderRow,
+        scroll = {},
+        align = "left",
+        emptyText = <Empty />,
+        expandedRowRender,
+        expandRowByClick,
+        expandIconAsCell,
+        expandIcon,
+        expandIconColumnIndex = 0
+    } = props;
     const [expandedRowKeys, changeExpandHandle, getFullColumns] = useExpander(props);
     const [scrollPosition, setScrollPosition] = useState<ScrollPosition>("left");
     const [hoverRowIndex, setHoverRowIndex] = useState(null);
@@ -83,8 +101,10 @@ function Table(props: TableProps) {
         const leftFixedHeaderRows = element.querySelectorAll(`.${prefixCls}-fixed-left thead th`);
         const rightFixedHeaderRows = element.querySelectorAll(`.${prefixCls}-fixed-right thead th`);
         const bodyHeader = element.querySelector(`.${prefixCls}-body thead`) as HTMLElement;
-        syncRowsHeight(leftFixedHeaderRows, bodyHeader.offsetHeight);
-        syncRowsHeight(rightFixedHeaderRows, bodyHeader.offsetHeight);
+        if (bodyHeader) {
+            syncRowsHeight(leftFixedHeaderRows, bodyHeader.offsetHeight);
+            syncRowsHeight(rightFixedHeaderRows, bodyHeader.offsetHeight);
+        }
 
         // 同步 body td 高度
         const leftFixedRows = element.querySelectorAll(`.${prefixCls}-fixed-left .${prefixCls}-row`);
@@ -107,8 +127,8 @@ function Table(props: TableProps) {
                         value={{ expandedRowRender, expandRowByClick, showExpandIcon: !!expandedRowRender, expandIcon, getFullColumns, expandIconAsCell, expandIconColumnIndex, expandedRowKeys, onExpand: changeExpandHandle }}
                     >
                         <TableMain prefixCls={prefixCls} columns={columns} data={data} scroll={scroll} emptyText={emptyText} onScrollLeft={onTableMainScroll} onRowHeightUpdate={onRowHeightUpdate} />
-                        <FixedTable prefixCls={prefixCls} columns={columns} data={data} scroll={scroll} fixed="left" />
-                        <FixedTable prefixCls={prefixCls} columns={columns} data={data} scroll={scroll} fixed="right" onScroll={handleBodyScroll} />
+                        <FixedTable prefixCls={prefixCls} columns={columns} data={data} scroll={scroll} emptyText={emptyText} fixed="left" />
+                        <FixedTable prefixCls={prefixCls} columns={columns} data={data} scroll={scroll} emptyText={emptyText} fixed="right" onScroll={handleBodyScroll} />
                     </ExpanderContext.Provider>
                 </TableContext.Provider>
             </div>
