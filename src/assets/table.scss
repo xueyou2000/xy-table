@@ -125,7 +125,6 @@ $Table: "xy-table";
 
 .#{$Table}-fixed-left {
     left: 0;
-    box-shadow: 4px 0 4px rgba(100, 100, 100, 0.1);
 
     .#{$Table}-body-inner {
         margin-right: -20px;
@@ -134,7 +133,15 @@ $Table: "xy-table";
 }
 .#{$Table}-fixed-right {
     right: 0;
-    box-shadow: -4px 0 4px rgba(100, 100, 100, 0.1);
+}
+
+.#{$Table}-overflow {
+    .#{$Table}-fixed-left {
+        box-shadow: 4px 0 4px rgba(100, 100, 100, 0.1);
+    }
+    .#{$Table}-fixed-right {
+        box-shadow: -4px 0 4px rgba(100, 100, 100, 0.1);
+    }
 }
 
 .#{$Table}-scroll-position-left {

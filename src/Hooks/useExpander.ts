@@ -8,7 +8,7 @@ import { ExpandFlag } from "../Table";
  * @param props
  */
 export default function useExpander(props: TableProps): [number[], (key: number, expanded: boolean) => void, (baseColumns: TableColumn[]) => TableColumn[]] {
-    const { onExpandedRowsChange, onExpand, data, expandIconAsCell = false, expandedRowRender, expandIconColumnIndex = 0 } = props;
+    const { onExpandedRowsChange, onExpand, data, expendWidth = null, expandIconAsCell = false, expandedRowRender, expandIconColumnIndex = 0 } = props;
 
     const [expandedRowKeys, setExpandedRowKeys, isControll] = useControll<number[]>(props, "expandedRowKeys", "defaultExpandAllRows", []);
 
@@ -40,7 +40,7 @@ export default function useExpander(props: TableProps): [number[], (key: number,
     function getFullColumns(baseColumns: TableColumn[]) {
         if (expandIconAsCell && !!expandedRowRender) {
             const cloneColumns = [...baseColumns];
-            cloneColumns.splice(expandIconColumnIndex, 0, { title: ExpandFlag });
+            cloneColumns.splice(expandIconColumnIndex, 0, { title: ExpandFlag, width: expendWidth });
             return cloneColumns;
         } else {
             return baseColumns;

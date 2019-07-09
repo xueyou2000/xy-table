@@ -31,6 +31,10 @@ export interface ExpandIconProps {
  */
 export interface ExpandProps {
     /**
+     * 折叠列宽度
+     */
+    expendWidth?: number | string;
+    /**
      * 自定义折叠图标
      */
     expandIcon?: (props: ExpandIconProps) => JSX.Element;

@@ -28,7 +28,7 @@ function TableRow(props: TableRowProps) {
         context.setRowIndex(null);
     }
 
-    const content = epContext.getFullColumns(columns).map((x, i) => {
+    const content = (fixed === false ? epContext.getFullColumns(columns) : columns).map((x, i) => {
         if (x.title !== ExpandFlag) {
             return (
                 <TableCell
@@ -55,7 +55,7 @@ function TableRow(props: TableRowProps) {
         onMouseEnter,
         onMouseLeave,
         children: content,
-        onClick: clickHandle
+        onClick: clickHandle,
     };
 
     function renderRow() {

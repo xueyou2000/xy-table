@@ -9,12 +9,12 @@ function TableCell(props: TableCellProps) {
     const context = useContext(TableContext);
     const align = column.align || context.align || "left";
     const classString = classNames(cellPrefixCls, className, column.className, `${cellPrefixCls}-align-${align}`, {
-        [`${prefixCls}-fixed-columns-in-body`]: !!column.fixed && !fixed
+        [`${prefixCls}-fixed-columns-in-body`]: !!column.fixed && !fixed,
     });
 
     const content = (
         <React.Fragment>
-            {expandIcon}
+            {fixed === false && expandIcon}
             {column.render ? column.render(record, rowIndex) : record[column.dataIndex]}
         </React.Fragment>
     );
@@ -22,7 +22,7 @@ function TableCell(props: TableCellProps) {
     const _props = {
         className: classString,
         // key: column.key,
-        children: content
+        children: content,
     };
 
     if (context.renderCell) {

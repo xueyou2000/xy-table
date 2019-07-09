@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ExpanderContext, TableContext } from "./Context";
 import FixedTable from "./FixedTable";
 import useExpander from "./Hooks/useExpander";
@@ -27,15 +27,17 @@ function Table(props: TableProps) {
         expandRowByClick,
         expandIconAsCell = false,
         expandIcon,
-        expandIconColumnIndex = 0
+        expandIconColumnIndex = 0,
     } = props;
     const [expandedRowKeys, changeExpandHandle, getFullColumns] = useExpander(props);
     const [scrollPosition, setScrollPosition] = useState<ScrollPosition>("left");
     const [hoverRowIndex, setHoverRowIndex] = useState(null);
+    const [overflow, setOVerflow] = useState(false);
     const getCheckboxColumn = useSelectedRows(props);
     const classString = classNames(prefixCls, className, `${prefixCls}-scroll-position-${scrollPosition}`, {
         [`${prefixCls}-fixed-header`]: scroll && !!scroll.y,
-        [`${prefixCls}-align-${align}`]: align
+        [`${prefixCls}-align-${align}`]: align,
+        [`${prefixCls}-overflow`]: overflow,
     });
     const ref = useRef(null);
 
@@ -119,6 +121,18 @@ function Table(props: TableProps) {
             setHoverRowIndex(i);
         }
     }
+
+    useEffect(() => {
+        const element = ref.current as HTMLElement;
+        if (element) {
+            const body = element.querySelector(`.${prefixCls}-body`);
+            if (body && body.clientWidth >= body.scrollWidth) {
+                setOVerflow(false);
+            } else {
+                setOVerflow(true);
+            }
+        }
+    }, [ref.current]);
 
     return (
         <div className={classString} style={style}>

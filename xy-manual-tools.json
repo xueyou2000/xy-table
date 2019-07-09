@@ -1,37 +1,7 @@
 [
     {
-        "name": "Simple",
-        "title": "简答例子",
-        "desc": "简答例子的一段描述。"
-    },
-    {
-        "name": "Fixed",
-        "title": "固定列",
-        "desc": "配置列描述的 fixed 字段为 'left' 或 'right' 启用固定列, 注意固定标志只能连着使用。"
-    },
-    {
-        "name": "Scroll",
-        "title": "显示滚动条",
-        "desc": "设置 scroll 属性 { x: true, y: 300 } 可以设置 50% 百分比字符串，或者数值, 或者布尔值。"
-    },
-    {
-        "name": "Selected",
-        "title": "复选表格",
-        "desc": "只要设置了 onChange 属性, 则会启用复选表格, 最开头列将显示复选框"
-    },
-    {
-        "name": "Expand",
-        "title": "折叠内容",
-        "desc": "设置了 expandedRowRender 属性在每一行下渲染扩展内容。"
-    },
-    {
         "name": "CustomizeExpand",
         "title": "自定义折叠图标",
         "desc": "设置了 expandIcon 属性自定义折叠图标。"
-    },
-    {
-        "name": "EmptyText",
-        "title": "空状态",
-        "desc": "当 data 属性不设置或者为空时, 将显示空状态。"
     }
 ]

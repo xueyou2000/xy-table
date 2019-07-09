@@ -20,10 +20,10 @@ function BaseTable(props: BaseTableProps) {
                 ths.push(
                     <th key={x.key || i} className={!!x.fixed && !fixed ? `${prefixCls}-fixed-columns-in-body` : null}>
                         {x.title}
-                    </th>
+                    </th>,
                 );
             } else {
-                cols.push(<col key={x.key || i} className={`${prefixCls}-expand-icon-col`} />);
+                cols.push(<col key={x.key || i} className={`${prefixCls}-expand-icon-col`} style={x.width ? { width: x.width, minWidth: x.width } : null} />);
                 ths.push(<th key={x.key || i} className={`${prefixCls}-expand-icon-th`} rowSpan={1} />);
             }
         });
