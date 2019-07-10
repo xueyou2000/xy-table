@@ -128,13 +128,9 @@ function Table(props: TableProps) {
             if (element) {
                 const body = element.querySelector(`.${prefixCls}-body`);
                 if (body && body.clientWidth >= body.scrollWidth) {
-                    if (overflow) {
-                        setOVerflow(false);
-                    }
+                    setOVerflow(false);
                 } else {
-                    if (!overflow) {
-                        setOVerflow(true);
-                    }
+                    setOVerflow(true);
                 }
             }
         }
