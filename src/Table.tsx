@@ -124,14 +124,28 @@ function Table(props: TableProps) {
 
     useEffect(() => {
         const element = ref.current as HTMLElement;
-        if (element) {
-            const body = element.querySelector(`.${prefixCls}-body`);
-            if (body && body.clientWidth >= body.scrollWidth) {
-                setOVerflow(false);
-            } else {
-                setOVerflow(true);
+        function checkOverflow() {
+            if (element) {
+                const body = element.querySelector(`.${prefixCls}-body`);
+                if (body && body.clientWidth >= body.scrollWidth) {
+                    if (overflow) {
+                        setOVerflow(false);
+                    }
+                } else {
+                    if (!overflow) {
+                        setOVerflow(true);
+                    }
+                }
             }
         }
+
+        function resize() {
+            checkOverflow();
+        }
+
+        checkOverflow();
+        window.addEventListener("resize", resize);
+        return () => window.removeEventListener("resize", resize);
     }, [ref.current]);
 
     return (

@@ -13,7 +13,7 @@ function TableMain(props: TableMainProps) {
     const bodyStyle: React.CSSProperties = {};
     const bodyTableStyle: React.CSSProperties = {};
     if (scroll && scroll.x) {
-        bodyStyle.overflowX = "scroll";
+        bodyStyle.overflowX = "auto";
         if (typeof scroll.x === "string" || typeof scroll.x === "number") {
             bodyTableStyle.width = scroll.x;
             bodyTableStyle.tableLayout = "fixed";
