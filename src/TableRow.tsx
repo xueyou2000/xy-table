@@ -32,7 +32,7 @@ function TableRow(props: TableRowProps) {
         if (x.title !== ExpandFlag) {
             return (
                 <TableCell
-                    key={`${rowIndex}-${x.key}`}
+                    key={`${rowIndex}-${x.key || x.title}`}
                     column={x}
                     fixed={fixed}
                     record={record}
@@ -69,7 +69,16 @@ function TableRow(props: TableRowProps) {
     return (
         <React.Fragment>
             {renderRow()}
-            {epContext.expandedRowRender && <ExpandRow prefixCls={prefixCls} rowIndex={rowIndex} record={record} columns={columns} expanded={expanded} expandedRowRender={epContext.expandedRowRender} />}
+            {epContext.expandedRowRender && (
+                <ExpandRow
+                    prefixCls={prefixCls}
+                    rowIndex={rowIndex}
+                    record={record}
+                    columns={columns}
+                    expanded={expanded}
+                    expandedRowRender={epContext.expandedRowRender}
+                />
+            )}
         </React.Fragment>
     );
 }

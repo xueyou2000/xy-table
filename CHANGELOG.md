@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.25 (Wed Sep 04 2019)
+
+-   `TableCell`现在根据`key`和`title`来获取`key`
+
 ## 0.0.24 (Wed Sep 04 2019)
 
 -   清除控制台打印, 优化代码警告
