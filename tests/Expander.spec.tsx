@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import Table from "../src";
 import { ExpandIconProps } from "../src/Expander/interface";
 
@@ -8,26 +8,26 @@ const columns = [
         title: "Name",
         dataIndex: "name",
         key: "name",
-        width: 100
+        width: 100,
     },
     {
         title: "Age",
         dataIndex: "age",
         key: "age",
-        width: 100
+        width: 100,
     },
     {
         title: "Address",
         dataIndex: "address",
         key: "address",
-        width: 200
+        width: 200,
     },
     {
         title: "Operations",
         dataIndex: "",
         key: "operations",
-        render: () => <a href="#">Delete</a>
-    }
+        render: () => <a href="#">Delete</a>,
+    },
 ];
 
 const data = [{ name: "Jack", age: 28, address: "some where", key: "1" }, { name: "Rose", age: 36, address: "some where", key: "2" }];
@@ -43,7 +43,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
         const expandIcon = wrapper.container.querySelector(".xy-table-expand-icon");
         expect(expandIcon.classList.contains("xy-table-collapsed")).toBeTruthy();
@@ -70,7 +70,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
 
         const tr = wrapper.getByText("Jack今年28岁").parentElement.parentElement as HTMLElement;
@@ -91,7 +91,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
         const expandIcon = wrapper.container.querySelector(".xy-table-expand-icon");
         fireEvent.click(expandIcon);
@@ -121,7 +121,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
 
         const expandIcon = wrapper.container.querySelector(".xy-table-expand-icon");
@@ -139,7 +139,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
 
         const cell = wrapper.container.querySelector(".xy-table-cell:nth-child(3)");
@@ -173,7 +173,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
 
         const expandIcon = wrapper.container.querySelector(".expand-row-icon");
@@ -193,7 +193,7 @@ describe("Expander", () => {
                         {record.name}今年{record.age}岁
                     </p>
                 )}
-            />
+            />,
         );
 
         const expandsDetail = wrapper.container.querySelectorAll(".xy-table-expand-icon") as NodeListOf<HTMLElement>;
