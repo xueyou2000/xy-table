@@ -1,6 +1,6 @@
 {
     "name": "xy-table",
-    "version": "0.0.25",
+    "version": "0.1.0",
     "description": "基于 React Hooks 的表格组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
@@ -36,22 +36,22 @@
         "registry": "http://registry.npmjs.org/"
     },
     "devDependencies": {
-        "@testing-library/react": "^9.1.4",
+        "@testing-library/react": "^9.3.2",
         "@types/classnames": "^2.2.9",
-        "@types/jest": "24.0.18",
-        "@types/node": "12.7.4",
-        "@types/react": "16.9.2",
-        "@types/react-dom": "16.9.0",
+        "@types/jest": "24.0.23",
+        "@types/node": "12.12.9",
+        "@types/react": "16.9.11",
+        "@types/react-dom": "16.9.4",
         "quick-react-scripts": "^1.2.3",
-        "xy-manual-tools": "^0.1.66"
+        "xy-manual-tools": "^0.3.0"
     },
     "dependencies": {
         "classnames": "^2.2.6",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0",
-        "utils-hooks": "^0.0.71",
-        "xy-checkbox": "^1.2.32",
-        "xy-empty": "^0.0.9"
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "utils-hooks": "^0.0.75",
+        "xy-checkbox": "^1.4.0",
+        "xy-empty": "^0.1.0"
     },
     "repository": {
         "type": "git",
